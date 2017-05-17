@@ -3,6 +3,7 @@
 import UIKit
 
 /** Variable Declaration  **/
+//inferred type
 //var myNumber: Int   ===  int myNumber; (java)
 //since we used double quptes this will be infered as string if not explicity decalred string
 var myMiddleInitial: Character = "A"
@@ -11,6 +12,10 @@ var centimetersOfRainfall: Float = 5.5
 var pi: Double = 3.14159265359
 var myFavoriteAnimal: String  = "nudibranch"
 var rainingOutside: Bool  = true
+
+
+
+
 
 
 
@@ -27,7 +32,7 @@ let theTruth = "Money can't buy me love."
 print (theTruth.characters.count)
 
 //reverse the string
-var forwardString = "spoons"
+var forwardString = "spoon"
 var charactersReversed = forwardString.characters.reversed()
 
 for character in charactersReversed {
@@ -37,7 +42,9 @@ for character in charactersReversed {
 //Swift strings are encoded with unicode scalars.
 //Unicode is a universal system for representing text so that any character from any language can be used in a standardized way. Unicode scalars are numbers that represent characters
 var monkeyStringWithEmoji = "I saw a 🐒."
-monkeyStringWithEmoji.unicodeScalars
+var nWithTilde = "\u{006E}\u{0303}"
+nWithTilde.unicodeScalars.count
+nWithTilde.characters.count
 
 //The syntax for string interpolation is: backslash, open parenthesis, variable name, closed parenthesis.
 //\(variableName)
@@ -78,6 +85,8 @@ let partB = phoneNumber.substring(from: phoneNumber.index(phoneNumber.startIndex
 
 
 
+
+
 /** Operator  **/
 //float and int are same
 print(1.0 == 1)
@@ -88,11 +97,17 @@ let arrayOfInts = [10,8,9]
 let biggerArrayOfInts = [6,5,4,3]
 print(arrayOfInts.count > biggerArrayOfInts.count)
 
+//Ternary conditional
+var hungry = true
+var vegetarian = false
+hungry || vegetarian ? print("Let's eat!") : print("Let's wait.")
 
 
 
-/** function  **/
-/*:
+
+
+
+/** function
 func nameOfFunction(parameter1Name: parameter1Type, parameter2Name: parameter2Type) -> Return Type {
  body of the function*
 }
@@ -107,3 +122,19 @@ func calculatePriceForMealWithTip(priceOfMeal: Double, tipPercentage: Double = 0
 
 calculatePriceForMealWithTip(priceOfMeal: 100.32, tipPercentage: 0.20)
 calculatePriceForMealWithTip(priceOfMeal: 65.43)
+
+
+
+
+
+
+
+
+/** class **/
+
+class LightSwitch {
+    var on: Bool = true
+}
+
+var livingRoomSwitch = LightSwitch()
+print (livingRoomSwitch.on)
