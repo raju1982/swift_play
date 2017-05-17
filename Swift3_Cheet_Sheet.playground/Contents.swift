@@ -1,16 +1,21 @@
-//: # Strings
+//: Playground - noun: a place where people can play
+
 import UIKit
-import Foundation
-//: ## Introduction
-// You've seen strings passed in to print statements
+
+/** Variable Declaration  **/
+//var myNumber: Int   ===  int myNumber; (java)
+//since we used double quptes this will be infered as string if not explicity decalred string
+var myMiddleInitial: Character = "A"
+var numberOfWheels: Int = 4
+var centimetersOfRainfall: Float = 5.5
+var pi: Double = 3.14159265359
+var myFavoriteAnimal: String  = "nudibranch"
+var rainingOutside: Bool  = true
 
 
-print("Hello, world!")
 
-// You've seen strings defined as variables and as constants
-var myFavoriteAnimal = "nudibranch"
-let encouragement = "You can do it!"
 
+/** String  **/
 // Loop through all the characters in a string
 var animal = "octopus"
 for character in animal.characters {
@@ -73,3 +78,32 @@ let partB = phoneNumber.substring(from: phoneNumber.index(phoneNumber.startIndex
 
 
 
+/** Operator  **/
+//float and int are same
+print(1.0 == 1)
+//A string is “less than” another string if it comes first alphabetically
+print("apple" < "orange")
+//array
+let arrayOfInts = [10,8,9]
+let biggerArrayOfInts = [6,5,4,3]
+print(arrayOfInts.count > biggerArrayOfInts.count)
+
+
+
+
+/** function  **/
+/*:
+func nameOfFunction(parameter1Name: parameter1Type, parameter2Name: parameter2Type) -> Return Type {
+ body of the function*
+}
+
+ //when we actually call a function, the input values that are passed to the function are known as arguments.
+*/
+
+//deafault value of tipPercentage is 0.15
+func calculatePriceForMealWithTip(priceOfMeal: Double, tipPercentage: Double = 0.15) -> Double {
+    return priceOfMeal + (priceOfMeal * tipPercentage)
+}
+
+calculatePriceForMealWithTip(priceOfMeal: 100.32, tipPercentage: 0.20)
+calculatePriceForMealWithTip(priceOfMeal: 65.43)
