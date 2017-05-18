@@ -15,6 +15,33 @@ var rainingOutside: Bool  = true
 
 
 
+//constant are immutable , decalred using 'let'
+//variable are mutable , decalred using 'var'
+//optional is needed in swift cause it dosen't allow nil is disallowed in other types.
+//optional are declared using question mark
+
+//Nil is disallowed in most Swift types however sometimes we need nil values.
+//A method that cannot return a value
+var y: Int?
+y = Int("ABC")
+//Properties that cannot be initialized when an object is constructed
+class ViewController: UIViewController {
+    var button: UIButton?
+}
+
+
+//Nil value Example
+var zee: Int?
+let strings = ["ABC","123"]
+let randomIndex = Int(arc4random() % 2)
+let anotherString = strings[randomIndex]
+zee = Int(anotherString)
+//check for Nil value 
+if let intValue = zee {
+    intValue * 2
+} else {
+    "No value"
+}
 
 
 
@@ -71,6 +98,7 @@ print (givenName)
 givenName.contains("tony")
 givenName.contains("jack")
 
+//A String can be treated as an NSString, replacingOccurrences is a NSString method.
 //Replacing a Substring
 var newName = givenName.replacingOccurrences(of: "tony", with: "race")
 
@@ -82,6 +110,8 @@ let partA = phoneNumber.substring(with: phoneNumber.index(phoneNumber.startIndex
 let partB = phoneNumber.substring(from: phoneNumber.index(phoneNumber.startIndex, offsetBy: partAEndIndex))
 
 
+//random number
+print(arc4random())
 
 
 
@@ -92,16 +122,35 @@ let partB = phoneNumber.substring(from: phoneNumber.index(phoneNumber.startIndex
 print(1.0 == 1)
 //A string is “less than” another string if it comes first alphabetically
 print("apple" < "orange")
-//array
-let arrayOfInts = [10,8,9]
-let biggerArrayOfInts = [6,5,4,3]
-print(arrayOfInts.count > biggerArrayOfInts.count)
-
 //Ternary conditional
 var hungry = true
 var vegetarian = false
 hungry || vegetarian ? print("Let's eat!") : print("Let's wait.")
 
+
+
+
+
+
+/** array **/
+let arrayOfInts = [10,8,9]
+let biggerArrayOfInts = [6,5,4,3]
+print(arrayOfInts.count > biggerArrayOfInts.count)
+//array can be compared directly [all element with index should match]
+let yearsOfTheGoat = [1967, 1979, 1991, 2003, 2015]
+let yearsOfTheSheep = [1967, 1979, 1991, 2003, 2015]
+let yearsOfTheDog = [1979, 1967, 1991, 2003, 2015]
+print(yearsOfTheGoat == yearsOfTheSheep)
+print(yearsOfTheGoat == yearsOfTheDog)
+
+
+// Dict
+let dictionary = ["monkey": "🐒", "iPhone":"📱"]
+var newestString = "A monkey stole my iPhone"
+for (key, value) in dictionary {
+    newestString = newestString.replacingOccurrences(of: key, with: value)
+}
+print(newestString)
 
 
 
@@ -138,3 +187,5 @@ class LightSwitch {
 
 var livingRoomSwitch = LightSwitch()
 print (livingRoomSwitch.on)
+
+
