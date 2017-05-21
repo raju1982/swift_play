@@ -13,14 +13,21 @@ var pi: Double = 3.14159265359
 var myFavoriteAnimal: String  = "nudibranch"
 var rainingOutside: Bool  = true
 
-
-
 //constant are immutable , decalred using 'let'
 //variable are mutable , decalred using 'var'
-//optional is needed in swift cause it dosen't allow nil is disallowed in other types.
 //optional are declared using question mark
 
-//Nil is disallowed in most Swift types however sometimes we need nil values.
+
+
+
+
+
+
+
+
+
+/*** optional ***/
+//optional is needed in swift cause Nil is disallowed in most Swift types however sometimes we need nil values.
 //A method that cannot return a value
 var y: Int?
 y = Int("ABC")
@@ -30,18 +37,177 @@ class ViewController: UIViewController {
 }
 
 
-//Nil value Example
-var zee: Int?
-let strings = ["ABC","123"]
-let randomIndex = Int(arc4random() % 2)
-let anotherString = strings[randomIndex]
-zee = Int(anotherString)
-//check for Nil value 
-if let intValue = zee {
-    intValue * 2
-} else {
-    "No value"
+//The variable, director, is an optional type. Its value cannot be used until it is unwrapped. Use `if let` to carefully unwrap the value returned by `moviesDict[movie]`
+var moviesDict:Dictionary = [ "Star Wars":"George Lucas", "Point Break":"Kathryn Bigelow"]
+var movie = "Point Break"
+if let director = moviesDict[movie] {
+    print(director)
 }
+
+//How to handle Nil value
+var imageView = UIImageView()
+imageView.image = UIImage(named:"puppy_in_box.jpg")
+//'if let' unpack the optional value
+if let image = imageView.image {
+    let size = image.size
+} else {
+    print("This image hasn't been set.")
+}
+imageView.image
+
+
+
+//Optional Chaining
+var sizes = imageView.image?.size
+
+
+//The class UIViewController has a property called tabBarController.  The tabBarController property is an optional of type UITabBarController?. The tabBarController itself holds a tabBar as a property. Complete the code below by filling in the appropriate use of optional chaining to access the tab bar property.
+var viewController = UIViewController()
+if let tabBar = viewController.tabBarController?.tabBar {
+    print("Here's the tab bar.")
+} else {
+    print("No tab bar controller found.")
+}
+
+
+
+
+//Implicitly Unwrapped Optionals 
+//(these optionals get automaticaally unwrapped, fatal error will be thrown if value is nil)
+// Example 1
+let w =  Int("12")!
+w * 2
+
+// Example 2
+class BetterViewController: UIViewController {
+    var myButton: UIButton!
+}
+
+//Optionals can be passed as parameters to functions
+func pickUpGroceries(grocerie:String?) {
+    if let grocerie = grocerie {
+        print("We'll pick up the groceries in the \(grocerie)")
+    } else {
+        print("Let's walk to the store")
+    }
+}
+
+pickUpGroceries(grocerie:"apple")
+pickUpGroceries(grocerie:nil)
+
+func pickUpGroceries2(_ grocerie:String?) {
+    if let grocerie = grocerie {
+        print("We'll pick up the groceries in the \(grocerie)")
+    } else {
+        print("Let's walk to the store")
+    }
+}
+
+pickUpGroceries2("apple")
+pickUpGroceries2(nil)
+
+
+/*
+class Animal {
+    var name: String
+    var species: String
+    var tail: Tail?
+    init(name: String, species: String, tailLength: Int?){
+        self.name=name
+        self.species=species
+        self.tail=Tail(length: tailLength)
+    }
+}
+struct Tail {
+    var length: Int
+    init(length: Int){self.length=length}
+}
+var animal = Animal(name: "Lenny", species: "lemur", tailLength: 12)
+animal = Animal(name: "Gilbert", species: "Gorilla", tailLength: nil )
+ if let tailLength = animal.tail?.length {
+ print("\(animal.name)'s tail is \(tailLength) long")
+ } else {
+ print("\(animal.name) doesn't have a tail.")
+ }
+*/
+
+
+
+
+
+
+
+
+
+
+//****: ## Downcasting with as? and as!    ****/
+
+import UIKit
+
+//: ### Downcasting
+class Beverage {
+    var category:String
+    init (category: String) {
+        self.category = category
+    }
+}
+
+class HotDrink: Beverage {
+    var pairing:String
+    
+    init (category: String, pairing: String) {
+        self.pairing = pairing
+        super.init(category: category)
+    }
+}
+
+class ColdDrink: Beverage {
+    var vessel:String
+    
+    init (category: String, vessel: String) {
+        self.vessel = vessel
+        super.init(category: category)
+    }
+}
+
+var drinkChoices = [
+    HotDrink(category: "coffee", pairing: "biscotti"),
+    HotDrink(category: "tea", pairing: "crumpets"),
+    ColdDrink(category: "lemonade", vessel: "glass"),
+    ColdDrink(category: "beer", vessel: "frosty mug")
+]
+
+// Generic drink offer
+for beverage in drinkChoices {
+    print ("Can I get you a \(beverage.category)")
+}
+//: Type cast operators: __as?__ and __as!__
+// Specific drink offer
+for beverage in drinkChoices {
+    if let coldDrink = beverage as? ColdDrink {
+        print ("Can I offer you a \(coldDrink.vessel) of \(coldDrink.category)?")
+    } else if let hotDrink = beverage as? HotDrink {
+        print ("Can I get you some \(hotDrink.category) with \(hotDrink.pairing)?")
+    }
+}
+//: ### Downcasting with as!
+var coffeeArray: [Beverage] = [
+    HotDrink(category: "coffee", pairing: "biscotti"),
+    HotDrink(category: "coffee", pairing: "scones"),
+    HotDrink(category: "coffee", pairing: "biscotti"),
+]
+
+for beverage in coffeeArray {
+    let hotDrink = beverage as! HotDrink
+    print ("Can I get you some \(hotDrink.category) with \(hotDrink.pairing)?")
+}
+
+
+
+
+
+
+
 
 
 
@@ -117,6 +283,10 @@ print(arc4random())
 
 
 
+
+
+
+
 /** Operator  **/
 //float and int are same
 print(1.0 == 1)
@@ -126,6 +296,14 @@ print("apple" < "orange")
 var hungry = true
 var vegetarian = false
 hungry || vegetarian ? print("Let's eat!") : print("Let's wait.")
+
+
+
+
+
+
+/*** collection ***/
+
 
 
 
@@ -151,6 +329,8 @@ for (key, value) in dictionary {
     newestString = newestString.replacingOccurrences(of: key, with: value)
 }
 print(newestString)
+
+
 
 
 
