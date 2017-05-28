@@ -326,9 +326,22 @@ hungry || vegetarian ? print("Let's eat!") : print("Let's wait.")
 
 
 /** array **/
-let arrayOfInts = [10,8,9]
-let biggerArrayOfInts = [6,5,4,3]
-print(arrayOfInts.count > biggerArrayOfInts.count)
+//: ### Initializing Arrays
+// The verbose way
+var numbers = Array<Double>()
+
+// More often you will see ...
+var moreNumbers = [Double]()
+moreNumbers = [85.0, 90.0, 95.0]
+
+// Array literal syntax
+let differentNumbers = [97.5, 98.5, 99.0]
+
+// Array concatenation is super convenient in Swift.
+moreNumbers = moreNumbers + differentNumbers
+print(moreNumbers.count > differentNumbers.count)
+
+
 //array can be compared directly [all element with index should match]
 let yearsOfTheGoat = [1967, 1979, 1991, 2003, 2015]
 let yearsOfTheSheep = [1967, 1979, 1991, 2003, 2015]
@@ -338,6 +351,10 @@ print(yearsOfTheGoat == yearsOfTheDog)
 
 
 // Dict
+//: ### Dictionary initialization
+// Initializer syntax
+var groupsDict = [String:String]()
+
 let dictionary = ["monkey": "🐒", "iPhone":"📱"]
 var newestString = "A monkey stole my iPhone"
 for (key, value) in dictionary {
