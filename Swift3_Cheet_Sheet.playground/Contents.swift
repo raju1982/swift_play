@@ -212,6 +212,21 @@ for beverage in coffeeArray {
 
 
 
+//Any?
+
+// cast Any? (phoneNumberField!.value!) as string
+// phoneNumberField!.value! as! String
+
+
+//Use this initializer to convert an instance of any type to its preferred representation as a String instance.
+//init<Subject>(describing instance: Subject)
+//String(describing: phoneNumberField!.value!)
+
+
+
+
+
+
 
 /** String  **/
 // Loop through all the characters in a string
