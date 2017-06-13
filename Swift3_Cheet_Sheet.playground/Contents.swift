@@ -1,6 +1,7 @@
 //: Playground - noun: a place where people can play
 
 import UIKit
+import XCTest
 
 /** Variable Declaration  **/
 //inferred type
@@ -399,5 +400,436 @@ class LightSwitch {
 
 var livingRoomSwitch = LightSwitch()
 print (livingRoomSwitch.on)
+
+
+
+
+//class, type property, computed property
+class Ops {
+    
+    func sum(_ valA: Int , _ valB: Int) -> Int{
+        return valA + valB
+    }
+    
+}
+
+Ops().sum(4,10)
+
+class Car {
+    let topSpeed: Int
+    let price: Float
+    var duct: Int = 10
+    
+    init(topSpeed: Int, price: Float){
+        self.topSpeed = topSpeed
+        self.price = price
+    }
+    //computed property (type) [computed property always var , never let]
+    var duty: Int {
+        get {
+            return duct * Int(price)
+        }
+        set(door){
+            self.duct = door
+        }
+    }
+    // instance method
+    func getTopSpeed() -> Int {
+        return topSpeed
+    }
+    
+    //typed method , method defined with class keyword can be overrirden
+    class func getFuelType() -> String{
+        return "gas"
+    }
+    
+    //typed method , method defined with static keyword cannot be overrirden
+    static func getManufactionCity() -> String{
+        return "detroit"
+    }
+}
+
+Car(topSpeed:100, price:25000).getTopSpeed()
+Car.getFuelType()
+print (Car(topSpeed:10, price:25).duty)
+var honda = Car(topSpeed:10, price:25)
+print(honda.duty)
+honda.duty = 90
+print(honda.duty)
+
+class SUV: Car {
+    let groundClearence: Float
+    //type property
+    static let additionalStateTax: Int = 400
+    //computed property (type)   [computed property always var , never let]
+    static var code : Int {
+        get {
+            return additionalStateTax/2
+        }
+    }
+    //computed property     [computed property always var , never let]
+    var tax : Int {
+        get {
+            return topSpeed * Int(price)
+        }
+    }
+    //call super class init after assigning value to class property
+    init(groundClearence: Float, topSpeed: Int, price: Float){
+        self.groundClearence = groundClearence
+        super.init(topSpeed: topSpeed, price: price)
+    }
+    
+    //overriden typed method
+    override class func getFuelType() -> String{
+        return "SUV gas"
+    }
+
+}
+
+SUV(groundClearence: 10, topSpeed:100, price:25000).getTopSpeed()
+SUV.additionalStateTax
+SUV.code
+SUV(groundClearence: 10, topSpeed:100, price:25000).tax
+SUV.getFuelType()
+
+
+//Enum
+enum country{
+    case india, usa, canada
+}
+
+var trip = country.india
+
+if(trip == country.india){
+    print("India")
+}
+
+enum Country: String {
+    case usa = "United States"
+    case canada = "Canada"
+    case uk = "United Kingdom"
+    case australia = "Australia"
+    case brazil = "Brazil"
+}
+
+var desti =  Country.uk
+
+if(desti == Country.uk){
+    print(desti.rawValue)
+}
+
+
+enum CaliforniaPark {
+    case yosemite, deathValley, lasson, sequoia
+}
+
+var warning = ""
+var destination = CaliforniaPark.yosemite
+
+switch destination {
+case .yosemite:
+    warning = "Beware of aggressive bears!"
+case .deathValley:
+    warning = "Beware of dehydration!"
+case .lasson:
+    warning = "Watch out for boiling pools!"
+case .sequoia:
+    warning = "Watch out for falling trees!"
+}
+
+
+
+//Structs does not need init , Structs get memberwise initializers automatically
+struct PictureFrame {
+    var width = 5
+    var height = 7
+    var thickness: Double = 1.5
+    
+    var area: Int {
+        get {
+            return (width * height)/2
+        }
+    }
+}
+
+var familyReunionFrame = PictureFrame(width: 10, height: 8, thickness: 1.5)
+familyReunionFrame.area
+
+
+
+//Structs can have methods (typed, non-typed)
+struct Beer {
+    var style = "Pale Ale"
+    var percentAlcohol = 5.0
+    static var cheersDict = ["English": "Cheers!","German": "Prost!", "Japanese": "乾杯", "Mandarin": "干杯!","Russian":"На здоровье!", "Spanish":"Salud!", "Italian": "Cin cin!"]
+    var suggestedVolumePerServing:String {
+        get {
+            let volume: Int = Int(12.0/(percentAlcohol/5.0))
+            return "\(volume) ounces"
+        }
+    }
+    
+    static func cheers(_ language: String) {
+        if let cheers = cheersDict[language] {
+            print("\(cheers)")
+        }
+    }
+}
+
+var happyHourBeer = Beer(style:"Lager", percentAlcohol: 6.0)
+happyHourBeer.suggestedVolumePerServing
+Beer.cheers("Japanese")
+
+// Enum and struct are value type
+// Value types are copied with every assignment
+var frame = PictureFrame(width: 3, height: 5, thickness: 0.5)
+var frameForMom = frame
+frameForMom.width = 5
+frameForMom.height = 7
+print (frame.width)
+
+
+class PicFrame {
+    var width = 5
+    var height = 7
+    var thickness: Double = 1.5
+    
+    init (width: Int, height: Int, thickness: Double){
+        self.width = width
+        self.height = height
+        self.thickness = thickness
+    }
+    
+    var area: Int {
+        get {
+            return (width * height)/2
+        }
+    }
+}
+
+//Reference types create a new reference with every assignment, they are NOT copied.
+var fram = PicFrame(width: 3, height: 5, thickness: 0.5)
+var framForMom = fram
+framForMom.width = 5
+framForMom.height = 7
+//value gets updated
+print (fram.width)
+
+
+
+// protocol (interface)
+protocol Souschef {
+    var size: Int { get }
+    var softFur: Bool { get }
+    func chop(vegetable: String) -> String
+    func rinse(vegetable: String) -> String
+}
+
+//implement Equatable if you want to compare two instance of class
+class Roommate: Souschef, Equatable {
+    var hungry = true
+    var name: String
+    //protocol variable
+    var size = 10;
+    var softFur = true;
+    
+    init(hungry: Bool, name: String) {
+        self.hungry = hungry
+        self.name = name
+    }
+    
+    func chop(vegetable: String) -> String {
+        return "She's choppin' \(vegetable)!"
+    }
+    
+    func rinse(vegetable: String) -> String {
+        return "The \(vegetable) is so fresh and so clean"
+    }
+}
+
+
+
+// operators are global function thus '==' method of Equatable protocal is implemented outside class.
+func ==(lhs: Roommate, rhs: Roommate) -> Bool {
+    return lhs.name == rhs.name && lhs.hungry == rhs.hungry
+}
+
+
+/*extension offer a way to add computed property and method to an existing class, struct and enum.*/
+
+//extension to XCUIElement element
+extension XCUIElement {
+    //adding new function to XCUIElement Class
+    func clearAndEnterText(text: String) -> Void {
+        //cast Any? (self.value) as string  [let stringValue = self.value as? String]
+        //Like an if statement, guard executes statements based on a Boolean value of an expression. Unlike an if statement, guard statements only run if the conditions are not met.
+        //self refers to calling object
+        guard let stringValue = self.value as? String else {
+            XCTFail("Tried to clear and enter text into a non string value")
+            return
+        }
+        self.tap()
+        //closure ***
+        let deleteString = stringValue.characters.map { _ in XCUIKeyboardKeyDelete }.joined(separator: "")
+        self.typeText(deleteString)
+        self.typeText(text)
+    }
+}
+
+//Extensions can be used to adhere to protocols.
+protocol Delta {
+    func chop(_ vegetable: String) -> String
+    func rinse(_ vegetable: String) -> String
+}
+
+class Room {
+    var hungry = true
+    var name: String
+    
+    init(hungry: Bool, name: String) {
+        self.hungry = hungry
+        self.name = name
+    }
+}
+
+extension Room: Delta {
+    func chop(_ vegetable: String) -> String {
+        return "She's choppin' \(vegetable)!"
+    }
+    
+    func rinse(_ vegetable: String) -> String {
+        return "The \(vegetable) is so fresh and so clean"
+    }
+}
+
+
+//Swift Convenience Initializers
+//Swift extensions make it easy to add new initializers to types without subclassing
+extension UIColor
+{
+    convenience init(redValue: Int, greenValue: Int, blueValue: Int)
+    {
+        let newRed   = CGFloat(Double(redValue) / 255.0)
+        let newGreen = CGFloat(Double(greenValue) / 255.0)
+        let newBlue  = CGFloat(Double(blueValue) / 255.0)
+        
+        self.init(red: newRed, green: newGreen, blue: newBlue, alpha: CGFloat(1.0))
+    }
+    
+    class func getColor() -> UIColor{
+        return UIColor(redValue: 147, greenValue: 197, blueValue: 114)
+    }
+}
+
+
+
+
+
+/*nested function*/
+//You can also define functions inside the bodies of other functions, known as nested functions.
+
+//global function
+func chooseStepFunction(backward: Bool) -> (Int) -> Int {
+    //nested function
+    func stepForward(input: Int) -> Int { return input + 1 }
+    //nested function
+    func stepBackward(input: Int) -> Int { return input - 1 }
+    return backward ? stepBackward : stepForward
+}
+
+
+
+
+
+
+/* Closures */
+
+//: ### Closures include:
+//: __global functions, nested functions, and closure expressions__
+
+//: ### What is a closure expression?
+//: closure expression - __an unnamed, self contained block of code that can be passed as an argument to a function__
+
+//: ### What are closure expressions used for?
+//: Closure expressions are used to __specify an action to be executed some time in the future.__
+
+//: ## Sorted
+
+var bids = [48.1, 75.4, 63.7, 52.4, 68.2]
+var orderedBids = bids.sorted(by: { (bid1: Double, bid2:Double) -> Bool in
+    return  bid2 > bid1
+})
+print(orderedBids)
+
+print(bids.sorted())
+
+//: Closures typically take the form:
+//:
+//: { (parameters) -> return type **in**
+//:
+//:     statements to execute
+//:
+//:}
+
+
+//: ### Tricks to make your closures more concise: filter
+var examGrades = [81, 99, 54, 84, 98]
+var passingGrades = examGrades.filter({(grade: Int) -> Bool in
+    return grade > 70
+})
+passingGrades
+
+//: Inferring closure expression type
+var grades = [81, 99, 54, 84, 98]
+var failingGrades = examGrades.filter({grade in
+    return grade < 70
+})
+
+//: Implicit returns
+var moreGrades = [81, 99, 54, 84, 98]
+var morePassingGrades = examGrades.filter({grade in
+    grade > 70
+})
+morePassingGrades
+
+
+//: Shorthand argument names: $0, $1, $2 ...
+// Example 1
+var myGrades = [81, 99, 54, 84, 98]
+var myFailingGrades = examGrades.filter({
+    $0 < 70
+})
+myFailingGrades
+
+
+// Example 2
+var soups = ["tomato", "hot and sour", "french onion", "vegetable"]
+var alphabeticalSoups = soups.sorted(by: {(soup1: String, soup2: String) -> Bool in
+    return soup2 > soup1
+})
+print (alphabeticalSoups)
+
+var shorhand_alphabeticalSoups = soups.sorted(by: { $1 > $0 })
+print (shorhand_alphabeticalSoups)
+
+
+//map function
+func timeIntervalFromString(_ timeString: String) -> Int {
+    var timeArray = timeString.components(separatedBy: ":")
+    let minutes = Int(String(timeArray[0]))!
+    let seconds = Int(String(timeArray[1]))!
+    return seconds + (minutes * 60)
+}
+
+func timeStringFromInterval(_ timeInterval: Int) -> NSString {
+    let seconds = timeInterval % 60
+    let minutes = (timeInterval/60) % 60
+    return NSString(format: "%.1d:%.2d",minutes,seconds)
+}
+
+var oldTimes = ["5:18", "5:45", "5:56", "5:25", "5:27"]
+
+let newTimes = oldTimes.map({timeStringFromInterval(timeIntervalFromString($0)+13)})
+print(newTimes)
 
 
